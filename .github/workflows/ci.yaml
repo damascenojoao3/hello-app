@@ -28,7 +28,7 @@ jobs:
       with:
         context: .
         push: true
-
+# teste
         tags: |
           ${{ secrets.DOCKER_USERNAME }}/hello-app:${{ github.sha }},${{ secrets.DOCKER_USERNAME }}/hello-app:latest
         file: ./Dockerfile
