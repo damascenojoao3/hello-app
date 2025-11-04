@@ -28,7 +28,34 @@ jobs:
       with:
         context: .
         push: true
-# teste
+
         tags: |
           ${{ secrets.DOCKER_USERNAME }}/hello-app:${{ github.sha }},${{ secrets.DOCKER_USERNAME }}/hello-app:latest
         file: ./Dockerfile
+    - name: Configure SSH Key
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+    - name: Update Manifests and Push
+      env:
+        REPO_URL: ${{ secrets.MANIFEST_REPO }}
+        NEW_TAG: ${{ secrets.DOCKER_USERNAME }}/hello-app:${{ github.sha }}
+        COMMIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+      run: |
+        git config --global user.email "${{ env.COMMIT_EMAIL }}"
+        git config --global user.name "github-actions[bot]"
+        
+        git clone $REPO_URL
+        
+        REPO_NAME=$(basename $REPO_URL .git)
+        cd $REPO_NAME
+        
+        PR_BRANCH="update/image-tag-${{ github.sha }}"
+        git checkout -b $PR_BRANCH
+        
+        sed -i "s|image: .*|image: $NEW_TAG|g" deployment.yaml
+        
+        git add deployment.yaml
+        git commit -m "feat(CI): Atualiza imagem para $NEW_TAG"
+        
+        git push origin $PR_BRANCH
