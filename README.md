@@ -50,7 +50,8 @@ Assim, é obtido o valor necessário.
 **SSH_PRIVATE_KEY**: é o conteúdo do arquivo ```gitops_key```. Para obté-lo, basta usar este comando:  
 ```ssh-keygen -t rsa -b 4096 -f gitops_key -C "gitops"```  
 e copiar 100% do conteúdo dele para o segredo (ele é usado como uma senha para o Github Actions autenticar e provar que é uma ação sua).  
-Ele é usado para gerar um arquivo além do gitops_key, o ```gitops_key.pub```, que é a chave pública.  
+Ele é usado para gerar um arquivo além do gitops_key, o ```gitops_key.pub```, que é a chave pública.
+No meu caso, os arquivos não apareceram no explorador de arquivos padrão, mas apareceram no VS Code, vale a dica.  
 **MANIFEST_REPO**: é o URL SSH do repositório dos manifestos, o alvo da operação de GitOps. O link SSH é:  
 ```git@github.com:seu-user/repositorio-dos-manifestos.git```  
 **GIT_EMAIL**: é seu e-mail do Github, basta adicioná-lo ao segredo.  
