@@ -55,7 +55,14 @@ No meu caso, os arquivos não apareceram no explorador de arquivos padrão, mas 
 **MANIFEST_REPO**: é o URL SSH do repositório dos manifestos, o alvo da operação de GitOps. O link SSH é:  
 ```git@github.com:seu-user/repositorio-dos-manifestos.git```  
 **GIT_EMAIL**: é seu e-mail do Github, basta adicioná-lo ao segredo.  
-Com isso, você tem tudo do repositório do app pronto!  
-Agora, você deve ir ao [repositório dos manifestos](https://github.com/damascenojoao3/hello-manifests)  
+Com isso, você tem tudo do repositório do app pronto! Mas como o [ci.yaml](.github/workflows/ci.yaml) funciona?
+# O arquivo CI
+O arquivo [ci.yaml](.github/workflows/ci.yaml) é o principal arquivo da pipeline de Integração Contínua (CI) e implementa a lógica de GitOps ao automatizar a entrega de código. Ele é disparado a cada push na branch main e executa a seguinte sequência de ações:  
+1. Build/publicação da imagem  
+A Action docker/build-push-action constrói a imagem Docker a partir do Dockerfile e a envia para o Docker Hub. A imagem é "taggeada" com a tag latest e com o SHA do Commit, garantindo a imutabilidade da versão.
+2. Update nos manifestos  
+Autenticação SSH utiliza o segredo ```SSH_PRIVATE_KEY``` para autenticar de forma segura no repositório hello-manifests e obter permissão de escrita.  
+Ao substituir a tag, o workflow clona o hello-manifests, cria uma nova branch e usa um script (comando ```sed```) para substituir a tag antiga da imagem no arquivo deployment.yaml pela nova tag SHA recém-criada, isso cria uma "baixa" junto de uma atualização no pull request.  
+Agora que você entendeu o CI, você deve ir ao [repositório dos manifestos](https://github.com/damascenojoao3/hello-manifests)  
 Ao fim da etapa deste repositório, ainda não tem nada pronto, mas o mais difícil já foi concluído! No final, sua aplicação estará rodando com essa cara:  
 ![img](evidencias/app.png)  
