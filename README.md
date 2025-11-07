@@ -21,7 +21,7 @@ hello-app/
 └── app/  
 - 2° Passo  
 Após ter essa estrutura pronta, é hora de adicionar os arquivos:  
-em  ```.github/workflows```, adicione o arquivo [ci.yaml](.github/workflows/ci.yaml). Após ter adicionado, volte à pasta app e adicione o arquivo [main.py](app/main.py) e o [arquivo dos requerimentos](app/requirements.txt) e adicione o arquivo [Dockerfile](Dockerfile) na raiz do repositório.  
+em  ```.github/workflows```, adicione o arquivo [ci.yaml](.github/workflows/ci.yaml). Após ter adicionado, volte à pasta app e adicione o arquivo [main.py](app/main.py) e o [arquivo dos requerimentos](app/requirements.txt) (fastapi e uvicorn são os requerimentos listados) e adicione o arquivo [Dockerfile](Dockerfile) na raiz do repositório.  
 A estrutura final tem que ficar assim:  
 hello-app/  
 ├── .github/  
