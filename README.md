@@ -1,4 +1,4 @@
-# Projeto CI/CD com Github Actions
+# Projeto CI/CD com Github Actions (app)
 Projeto feito no Windows para simular o CI/CD de uma empresa com Github Actions e Argo CD, com o Github como fonte de verdades.  
 Argo CD é a ferramenta declarativa de entrega contínua (CD) e de GitOps para o Kubernetes.
 # O que foi usado neste repositório
